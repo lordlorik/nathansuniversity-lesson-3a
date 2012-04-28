@@ -1,0 +1,35 @@
+start =
+    blankOrComment* program: spacedExpression?
+        { return program; }
+
+validchar =
+    [0-9a-zA-Z_?!+\-=@#$%^&*/.]
+    
+blank "blank" =
+    [ \r\n\t]
+
+comment "comment" =
+    ";;" [^\r\n]*
+        { return ''; }
+
+blankOrComment =
+    blank
+    / comment
+    
+atom "atom" =
+    chars: validchar+
+        { return chars.join(''); }
+
+quoteExpression "quote" =
+    "'" expr: spacedExpression
+        { return ['quote', expr]; }
+
+expression =
+    atom
+    / quoteExpression
+    / '(' exprs: spacedExpression+ ')'
+        { return exprs; }
+
+spacedExpression =
+    blankOrComment* expr: expression blankOrComment*
+        { return expr; }
