@@ -21,3 +21,4 @@ assert.deepEqual(parse('\'(a b c)'), ['quote', ['a', 'b', 'c']]);
 assert.deepEqual(parse('(a b c) ;; comment with closing parenthesis )'), ['a', 'b', 'c']);
 assert.deepEqual(parse('(a b c ;; comment with closing parenthesis )\n) '), ['a', 'b', 'c']);
 assert.deepEqual(parse(';; comment only'), '');
+assert.deepEqual(parse(''), '');

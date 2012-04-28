@@ -24,11 +24,14 @@ quoteExpression "quote" =
     "'" expr: spacedExpression
         { return ['quote', expr]; }
 
+listExpression "list" =
+    '(' exprs: spacedExpression+ ')'
+        { return exprs; }
+
 expression =
     atom
     / quoteExpression
-    / '(' exprs: spacedExpression+ ')'
-        { return exprs; }
+    / listExpression
 
 spacedExpression =
     blankOrComment* expr: expression blankOrComment*
